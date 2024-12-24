@@ -20,13 +20,15 @@ import "fmt"
 func NewGrl() *Grl {
 
 	return &Grl{
-		RuleEntries: make(map[string]*RuleEntry, 0),
+		RuleNames:   make(map[string]bool),
+		RuleEntries: make([]*RuleEntry, 0),
 	}
 }
 
 // Grl will contains multiple RuleEntries
 type Grl struct {
-	RuleEntries map[string]*RuleEntry
+	RuleNames   map[string]bool
+	RuleEntries []*RuleEntry
 }
 
 // GrlReceiver is interface for objects that should hold a GRL, will be called by ANTLR walker.
@@ -36,14 +38,17 @@ type GrlReceiver interface {
 
 // ReceiveRuleEntry will make this GRL to accept rule entries created by ANTLR walker
 func (g *Grl) ReceiveRuleEntry(entry *RuleEntry) error {
-	if g.RuleEntries == nil {
-		g.RuleEntries = make(map[string]*RuleEntry)
+	if g.RuleNames == nil {
+		g.RuleNames = make(map[string]bool)
 	}
-	if _, ok := g.RuleEntries[entry.RuleName]; ok {
-
+	if g.RuleEntries == nil {
+		g.RuleEntries = make([]*RuleEntry, 0)
+	}
+	if _, ok := g.RuleNames[entry.RuleName]; ok {
 		return fmt.Errorf("duplicate rule entry %s", entry.RuleName)
 	}
-	g.RuleEntries[entry.RuleName] = entry
+	g.RuleNames[entry.RuleName] = true
+	g.RuleEntries = append(g.RuleEntries, entry)
 
 	return nil
 }

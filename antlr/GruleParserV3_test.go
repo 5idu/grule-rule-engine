@@ -263,24 +263,31 @@ rule SpeedUp "When testcar is speeding up we keep increase the speed." salience 
 	}
 
 	listener.KnowledgeBase.WorkingMemory.IndexVariables()
-	if listener.Grl.RuleEntries["SpeedUp"] == nil {
+	var rule *ast.RuleEntry
+	for _, v := range listener.Grl.RuleEntries {
+		if v.RuleName == "SpeedUp" {
+			rule = v
+			break
+		}
+	}
+	if rule == nil {
 		t.Fatalf("Rule entry not exist")
 	}
-	if listener.Grl.RuleEntries["SpeedUp"].WhenScope == nil {
+	if rule.WhenScope == nil {
 		t.Fatalf("When scope not exist")
 	}
-	if listener.Grl.RuleEntries["SpeedUp"].ThenScope == nil {
+	if rule.ThenScope == nil {
 		t.Fatalf("Then scope not exist")
 	}
-	t.Log(listener.Grl.RuleEntries["SpeedUp"].GetSnapshot())
-	if listener.Grl.RuleEntries["SpeedUp"].ThenScope.ThenExpressionList == nil {
+	t.Log(rule.GetSnapshot())
+	if rule.ThenScope.ThenExpressionList == nil {
 		t.Fatalf("Then expression list is not exist")
 	}
-	if listener.Grl.RuleEntries["SpeedUp"].ThenScope.ThenExpressionList.ThenExpressions == nil {
+	if rule.ThenScope.ThenExpressionList.ThenExpressions == nil {
 		t.Fatalf("Then expression list array is not exist")
 	}
-	if len(listener.Grl.RuleEntries["SpeedUp"].ThenScope.ThenExpressionList.ThenExpressions) != 2 {
-		t.Fatalf("Then expression list array %s contains not 2 but %d", listener.Grl.RuleEntries["SpeedUp"].ThenScope.ThenExpressionList.GetAstID(), len(listener.Grl.RuleEntries["SpeedUp"].ThenScope.ThenExpressionList.ThenExpressions))
+	if len(rule.ThenScope.ThenExpressionList.ThenExpressions) != 2 {
+		t.Fatalf("Then expression list array %s contains not 2 but %d", rule.ThenScope.ThenExpressionList.GetAstID(), len(rule.ThenScope.ThenExpressionList.ThenExpressions))
 	}
 }
 

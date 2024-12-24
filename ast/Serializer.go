@@ -18,11 +18,12 @@ import (
 	"bytes"
 	"encoding/binary"
 	"fmt"
-	"github.com/hyperjumptech/grule-rule-engine/ast/unique"
-	"github.com/sirupsen/logrus"
 	"io"
 	"math"
 	"reflect"
+
+	"github.com/hyperjumptech/grule-rule-engine/ast/unique"
+	"github.com/sirupsen/logrus"
 )
 
 // NodeType is to label a Meta information within catalog
@@ -118,6 +119,7 @@ func (cat *Catalog) BuildKnowledgeBase() (*KnowledgeBase, error) {
 		DataContext:   nil,
 		WorkingMemory: workingMem,
 		RuleEntries:   make(map[string]*RuleEntry),
+		RuleNames:     make([]string, 0),
 	}
 	importTable := make(map[string]Node)
 
@@ -236,6 +238,7 @@ func (cat *Catalog) BuildKnowledgeBase() (*KnowledgeBase, error) {
 			}
 			importTable[amet.AstID] = ruleEntry
 			knowledgeBase.RuleEntries[ruleEntry.RuleName] = ruleEntry
+			knowledgeBase.RuleNames = append(knowledgeBase.RuleNames, ruleEntry.RuleName)
 		case TypeThenExpression:
 			amet := meta.(*ThenExpressionMeta)
 			thenExp := &ThenExpression{

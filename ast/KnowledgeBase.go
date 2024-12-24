@@ -17,13 +17,12 @@ package ast
 import (
 	"bytes"
 	"fmt"
-	"github.com/google/uuid"
 	"io"
-	"sort"
-	"strings"
 	"sync"
 
 	"github.com/hyperjumptech/grule-rule-engine/pkg"
+
+	"github.com/duke-git/lancet/v2/slice"
 )
 
 // NewKnowledgeLibrary create a new instance KnowledgeLibrary
@@ -52,6 +51,7 @@ func (lib *KnowledgeLibrary) GetKnowledgeBase(name, version string) *KnowledgeBa
 		Name:          name,
 		Version:       version,
 		RuleEntries:   make(map[string]*RuleEntry),
+		RuleNames:     make([]string, 0),
 		WorkingMemory: NewWorkingMemory(name, version),
 	}
 	lib.Library[fmt.Sprintf("%s:%s", name, version)] = knowledgeBase
@@ -62,15 +62,9 @@ func (lib *KnowledgeLibrary) GetKnowledgeBase(name, version string) *KnowledgeBa
 // RemoveRuleEntry mark the rule entry as deleted
 func (lib *KnowledgeLibrary) RemoveRuleEntry(ruleName, name string, version string) {
 	nameVersion := fmt.Sprintf("%s:%s", name, version)
-	_, ok := lib.Library[nameVersion]
+	knowledgeBase, ok := lib.Library[nameVersion]
 	if ok {
-		ruleEntry, ok := lib.Library[nameVersion].RuleEntries[ruleName]
-		if ok {
-			lib.Library[nameVersion].RuleEntries[ruleName].RuleName = fmt.Sprintf("Deleted_%s", uuid.New().String())
-			lib.Library[nameVersion].RuleEntries[ruleName].Deleted = true
-			delete(lib.Library[nameVersion].RuleEntries, ruleName)
-			lib.Library[nameVersion].RuleEntries[ruleEntry.RuleName] = ruleEntry
-		}
+		knowledgeBase.RemoveRuleEntry(ruleName)
 	}
 }
 
@@ -157,6 +151,7 @@ type KnowledgeBase struct {
 	DataContext   IDataContext
 	WorkingMemory *WorkingMemory
 	RuleEntries   map[string]*RuleEntry
+	RuleNames     []string
 }
 
 // MakeCatalog will create a catalog entry for all AST Nodes under the KnowledgeBase
@@ -195,20 +190,13 @@ func (e *KnowledgeBase) IsIdentical(that *KnowledgeBase) bool {
 func (e *KnowledgeBase) GetSnapshot() string {
 	var buffer bytes.Buffer
 	buffer.WriteString(fmt.Sprintf("%s:%s[", e.Name, e.Version))
-	keys := make([]string, 0)
-	for i := range e.RuleEntries {
-		keys = append(keys, i)
-	}
-	sort.SliceStable(keys, func(i, j int) bool {
-
-		return strings.Compare(keys[i], keys[j]) >= 0
-	})
-	for i, k := range keys {
+	for i, name := range e.RuleNames {
 		if i > 0 {
 			buffer.WriteString(",")
 		}
-		buffer.WriteString(e.RuleEntries[k].GetSnapshot())
+		buffer.WriteString(e.RuleEntries[name].GetSnapshot())
 	}
+
 	buffer.WriteString("]")
 
 	return buffer.String()
@@ -220,14 +208,17 @@ func (e *KnowledgeBase) Clone(cloneTable *pkg.CloneTable) (*KnowledgeBase, error
 		Name:        e.Name,
 		Version:     e.Version,
 		RuleEntries: make(map[string]*RuleEntry),
+		RuleNames:   make([]string, 0),
 	}
 	if e.RuleEntries != nil {
-		for k, entry := range e.RuleEntries {
+		clone.RuleNames = e.RuleNames
+		for _, ruleName := range e.RuleNames {
+			entry := e.RuleEntries[ruleName]
 			if cloneTable.IsCloned(entry.AstID) {
-				clone.RuleEntries[k] = cloneTable.Records[entry.AstID].CloneInstance.(*RuleEntry)
+				clone.RuleEntries[ruleName] = cloneTable.Records[entry.AstID].CloneInstance.(*RuleEntry)
 			} else {
 				cloned := entry.Clone(cloneTable)
-				clone.RuleEntries[k] = cloned
+				clone.RuleEntries[ruleName] = cloned
 				cloneTable.MarkCloned(entry.AstID, cloned.AstID, entry, cloned)
 			}
 		}
@@ -253,7 +244,7 @@ func (e *KnowledgeBase) AddRuleEntry(entry *RuleEntry) error {
 		return fmt.Errorf("rule entry %s already exist", entry.RuleName)
 	}
 	e.RuleEntries[entry.RuleName] = entry
-
+	e.RuleNames = append(e.RuleNames, entry.RuleName)
 	return nil
 }
 
@@ -269,13 +260,8 @@ func (e *KnowledgeBase) RemoveRuleEntry(name string) {
 	e.lock.Lock()
 	defer e.lock.Unlock()
 	if e.ContainsRuleEntry(name) {
-		//mark the rule as deleted and change the rule name to DELETED_XXX_XXXXX to avoid duplicate rule entry issue
-		//Note: This is a workaround, will improve this logic a bit in near future
-		ruleEntry := e.RuleEntries[name]
-		e.RuleEntries[name].RuleName = fmt.Sprintf("Deleted_%s", ruleEntry.RuleName)
-		e.RuleEntries[name].Deleted = true
 		delete(e.RuleEntries, name)
-		e.RuleEntries[ruleEntry.RuleName] = ruleEntry
+		e.RuleNames = slice.DeleteAt(e.RuleNames, slice.IndexOf(e.RuleNames, name))
 	}
 }
 
@@ -286,23 +272,19 @@ func (e *KnowledgeBase) InitializeContext(dataCtx IDataContext) {
 
 // RetractRule will retract the selected rule for execution on the next cycle.
 func (e *KnowledgeBase) RetractRule(ruleName string) {
-	for _, re := range e.RuleEntries {
-		if re.RuleName == ruleName {
-			re.Retracted = true
-		}
+	re, ok := e.RuleEntries[ruleName]
+	if ok {
+		re.Retracted = true
 	}
 }
 
 // IsRuleRetracted will check if a certain rule denoted by its rule name is currently retracted
 func (e *KnowledgeBase) IsRuleRetracted(ruleName string) bool {
-	for _, re := range e.RuleEntries {
-		if re.RuleName == ruleName {
-
-			return re.Retracted
-		}
+	re, ok := e.RuleEntries[ruleName]
+	if !ok {
+		return false
 	}
-
-	return false
+	return re.Retracted
 }
 
 // Reset will restore all rule in the knowledge

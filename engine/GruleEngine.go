@@ -17,10 +17,11 @@ package engine
 import (
 	"context"
 	"fmt"
-	"github.com/sirupsen/logrus"
-	"go.uber.org/zap"
 	"sort"
 	"time"
+
+	"github.com/sirupsen/logrus"
+	"go.uber.org/zap"
 
 	"github.com/hyperjumptech/grule-rule-engine/ast"
 	"github.com/hyperjumptech/grule-rule-engine/logger"
@@ -166,7 +167,8 @@ func (g *GruleEngine) ExecuteWithContext(ctx context.Context, dataCtx ast.IDataC
 		// Select all rule entry that can be executed.
 		log.Tracef("Select all rule entry that can be executed.")
 		runnable := make([]*ast.RuleEntry, 0)
-		for _, ruleEntry := range knowledge.RuleEntries {
+		for _, ruleName := range knowledge.RuleNames {
+			ruleEntry := knowledge.RuleEntries[ruleName]
 			if ctx.Err() != nil {
 				log.Error("Context canceled")
 
@@ -273,7 +275,8 @@ func (g *GruleEngine) FetchMatchingRules(dataCtx ast.IDataContext, knowledge *as
 	// Select all rule entry that can be executed.
 	log.Tracef("Select all rule entry that can be executed.")
 	runnable := make([]*ast.RuleEntry, 0)
-	for _, entries := range knowledge.RuleEntries {
+	for _, ruleName := range knowledge.RuleNames {
+		entries := knowledge.RuleEntries[ruleName]
 		if !entries.Deleted {
 			// test if this rule entry v can execute.
 			can, err := entries.Evaluate(context.Background(), dataCtx, knowledge.WorkingMemory)

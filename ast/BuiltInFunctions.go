@@ -15,11 +15,12 @@
 package ast
 
 import (
-	"github.com/hyperjumptech/grule-rule-engine/logger"
 	"math"
 	"reflect"
 	"strings"
 	"time"
+
+	"github.com/hyperjumptech/grule-rule-engine/logger"
 
 	"github.com/hyperjumptech/grule-rule-engine/pkg"
 )
@@ -536,4 +537,24 @@ func (gf *BuiltInFunctions) Tanh(x float64) float64 {
 func (gf *BuiltInFunctions) Trunc(x float64) float64 {
 
 	return math.Trunc(x)
+}
+
+// AnyMatch 检查字段值是否匹配任意一个给定的值
+func (gf *BuiltInFunctions) AnyMatch(field string, values ...string) bool {
+	for _, v := range values {
+		if field == v {
+			return true
+		}
+	}
+	return false
+}
+
+// NoneMatch 检查字段值是否都不匹配给定的值
+func (gf *BuiltInFunctions) NoneMatch(field string, values ...string) bool {
+	for _, v := range values {
+		if field == v {
+			return false
+		}
+	}
+	return true
 }
