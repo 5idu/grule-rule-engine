@@ -18,7 +18,7 @@ import (
 	"fmt"
 	"reflect"
 
-	"github.com/hyperjumptech/grule-rule-engine/pkg"
+	"github.com/5idu/grule-rule-engine/pkg"
 )
 
 // NewGoValueNode creates new instance of ValueNode backed by golang reflection

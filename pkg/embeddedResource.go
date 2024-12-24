@@ -23,8 +23,8 @@ import (
 	"runtime"
 	"strings"
 
+	"github.com/5idu/grule-rule-engine/logger"
 	"github.com/bmatcuk/doublestar"
-	"github.com/hyperjumptech/grule-rule-engine/logger"
 )
 
 // EmbeddedResource is a struct that will load an embedded file from an embed.FS struct.

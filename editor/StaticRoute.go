@@ -2,12 +2,13 @@ package editor
 
 import (
 	"embed"
-	"github.com/hyperjumptech/grule-rule-engine/editor/mime"
-	mux "github.com/hyperjumptech/hyper-mux"
-	"github.com/sirupsen/logrus"
 	"net/http"
 	"os"
 	"strings"
+
+	"github.com/5idu/grule-rule-engine/editor/mime"
+	mux "github.com/hyperjumptech/hyper-mux"
+	"github.com/sirupsen/logrus"
 )
 
 //go:embed statics

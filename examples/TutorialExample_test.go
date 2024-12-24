@@ -16,13 +16,14 @@ package examples
 
 import (
 	"fmt"
-	"github.com/hyperjumptech/grule-rule-engine/ast"
-	"github.com/hyperjumptech/grule-rule-engine/builder"
-	"github.com/hyperjumptech/grule-rule-engine/engine"
-	"github.com/hyperjumptech/grule-rule-engine/pkg"
-	"github.com/stretchr/testify/assert"
 	"testing"
 	"time"
+
+	"github.com/5idu/grule-rule-engine/ast"
+	"github.com/5idu/grule-rule-engine/builder"
+	"github.com/5idu/grule-rule-engine/engine"
+	"github.com/5idu/grule-rule-engine/pkg"
+	"github.com/stretchr/testify/assert"
 )
 
 type MyFact struct {

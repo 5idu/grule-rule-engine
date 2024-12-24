@@ -25,7 +25,7 @@ import (
 
 	"github.com/go-git/go-billy/v5"
 
-	"github.com/hyperjumptech/grule-rule-engine/logger"
+	"github.com/5idu/grule-rule-engine/logger"
 
 	"github.com/bmatcuk/doublestar"
 )

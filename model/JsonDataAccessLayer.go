@@ -17,9 +17,10 @@ package model
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/hyperjumptech/grule-rule-engine/pkg"
 	"reflect"
 	"time"
+
+	"github.com/5idu/grule-rule-engine/pkg"
 )
 
 var (

@@ -17,8 +17,9 @@ package ast
 //go:generate mockgen -destination=../mocks/ast/DataContext.go -package=mocksAst . IDataContext
 
 import (
-	"github.com/hyperjumptech/grule-rule-engine/model"
 	"reflect"
+
+	"github.com/5idu/grule-rule-engine/model"
 )
 
 // NewDataContext will create a new DataContext instance

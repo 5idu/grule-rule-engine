@@ -20,9 +20,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/hyperjumptech/grule-rule-engine/logger"
+	"github.com/5idu/grule-rule-engine/logger"
 
-	"github.com/hyperjumptech/grule-rule-engine/pkg"
+	"github.com/5idu/grule-rule-engine/pkg"
 )
 
 var (

@@ -16,11 +16,12 @@ package benchmark
 
 import (
 	"fmt"
-	"github.com/hyperjumptech/grule-rule-engine/ast"
-	"github.com/hyperjumptech/grule-rule-engine/builder"
-	"github.com/hyperjumptech/grule-rule-engine/pkg"
 	"io/ioutil"
 	"testing"
+
+	"github.com/5idu/grule-rule-engine/ast"
+	"github.com/5idu/grule-rule-engine/builder"
+	"github.com/5idu/grule-rule-engine/pkg"
 )
 
 /*

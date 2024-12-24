@@ -2,13 +2,14 @@ package editor
 
 import (
 	"context"
-	mux "github.com/hyperjumptech/hyper-mux"
-	"github.com/sirupsen/logrus"
 	"log"
 	"net/http"
 	"os"
 	"os/signal"
 	"time"
+
+	mux "github.com/hyperjumptech/hyper-mux"
+	"github.com/sirupsen/logrus"
 )
 
 var (

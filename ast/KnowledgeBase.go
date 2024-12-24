@@ -20,7 +20,7 @@ import (
 	"io"
 	"sync"
 
-	"github.com/hyperjumptech/grule-rule-engine/pkg"
+	"github.com/5idu/grule-rule-engine/pkg"
 
 	"github.com/duke-git/lancet/v2/slice"
 )
@@ -76,7 +76,7 @@ func (lib *KnowledgeLibrary) LoadKnowledgeBaseFromReader(reader io.Reader, overw
 	defer func() {
 		if r := recover(); r != nil {
 			retKb = nil
-			retErr = fmt.Errorf("panic recovered during LoadKnowledgeBaseFromReader, recover \"%v\". send us your report to https://github.com/hyperjumptech/grule-rule-engine/issues", r)
+			retErr = fmt.Errorf("panic recovered during LoadKnowledgeBaseFromReader, recover \"%v\". send us your report to https://github.com/5idu/grule-rule-engine/issues", r)
 		}
 	}()
 

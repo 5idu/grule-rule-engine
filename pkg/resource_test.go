@@ -106,7 +106,7 @@ func TestGitResource(t *testing.T) {
 		t.Skip("skipping GIT resource test in short mode")
 	}
 	gitRb := &GITResourceBundle{
-		URL: "https://github.com/hyperjumptech/grule-rule-engine.git",
+		URL: "https://github.com/5idu/grule-rule-engine.git",
 		PathPattern: []string{
 			"/antlr/*.grl",
 		},

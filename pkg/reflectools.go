@@ -19,7 +19,7 @@ import (
 	"math"
 	"reflect"
 
-	"github.com/hyperjumptech/grule-rule-engine/logger"
+	"github.com/5idu/grule-rule-engine/logger"
 )
 
 // GetFunctionList get list of functions in a struct instance

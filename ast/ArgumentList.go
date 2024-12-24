@@ -16,10 +16,11 @@ package ast
 
 import (
 	"bytes"
-	"github.com/hyperjumptech/grule-rule-engine/ast/unique"
 	"reflect"
 
-	"github.com/hyperjumptech/grule-rule-engine/pkg"
+	"github.com/5idu/grule-rule-engine/ast/unique"
+
+	"github.com/5idu/grule-rule-engine/pkg"
 )
 
 // NewArgumentList create a new instance of ArgumentList

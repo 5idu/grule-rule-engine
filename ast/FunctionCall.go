@@ -17,9 +17,10 @@ package ast
 import (
 	"bytes"
 	"fmt"
-	"github.com/hyperjumptech/grule-rule-engine/ast/unique"
-	"github.com/hyperjumptech/grule-rule-engine/pkg"
 	"reflect"
+
+	"github.com/5idu/grule-rule-engine/ast/unique"
+	"github.com/5idu/grule-rule-engine/pkg"
 )
 
 // NewFunctionCall creates new instance of FunctionCall

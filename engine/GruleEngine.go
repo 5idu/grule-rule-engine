@@ -23,8 +23,8 @@ import (
 	"github.com/sirupsen/logrus"
 	"go.uber.org/zap"
 
-	"github.com/hyperjumptech/grule-rule-engine/ast"
-	"github.com/hyperjumptech/grule-rule-engine/logger"
+	"github.com/5idu/grule-rule-engine/ast"
+	"github.com/5idu/grule-rule-engine/logger"
 )
 
 const (
