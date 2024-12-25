@@ -539,7 +539,7 @@ func (gf *BuiltInFunctions) Trunc(x float64) float64 {
 	return math.Trunc(x)
 }
 
-// AnyMatch 检查字段值是否匹配任意一个给定的值
+// AnyMatch checks if the field value matches any of the given values
 func (gf *BuiltInFunctions) AnyMatch(field string, values ...string) bool {
 	for _, v := range values {
 		if field == v {
@@ -549,7 +549,7 @@ func (gf *BuiltInFunctions) AnyMatch(field string, values ...string) bool {
 	return false
 }
 
-// NoneMatch 检查字段值是否都不匹配给定的值
+// NoneMatch checks if the field value does not match any of the given values
 func (gf *BuiltInFunctions) NoneMatch(field string, values ...string) bool {
 	for _, v := range values {
 		if field == v {

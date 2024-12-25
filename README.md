@@ -1,23 +1,22 @@
-
 [![Gopheer Holds The Rule](https://github.com/hyperjumptech/grule-rule-engine/blob/master/gopher-grule.png?raw=true)](https://github.com/hyperjumptech/grule-rule-engine/blob/master/gopher-grule.png?raw=true)
 
 [![Go Report Card](https://github.com/hyperjumptech/grule-rule-engine/actions/workflows/build-test-workflow.yml/badge.svg)](https://github.com/hyperjumptech/grule-rule-engine/actions/workflows/build-test-workflow.yml)
 [![Go Report Card](https://goreportcard.com/badge/github.com/hyperjumptech/grule-rule-engine)](https://goreportcard.com/report/github.com/hyperjumptech/grule-rule-engine)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-__"Gopher Holds The Rules"__
+**"Gopher Holds The Rules"**
 
 # Grule-Rule-Engine
 
 ```go
-import "github.com/hyperjumptech/grule-rule-engine"
+import "github.com/5idu/grule-rule-engine"
 ```
 
 ## Rule Engine for Go
 
 **Grule** is a Rule Engine library for the Go (Golang) programming language. Inspired by the acclaimed JBOSS Drools, and done in a much simpler manner.
 
-Like **Drools**, **Grule** has its own *DSL* or Domain-Specific Language.
+Like **Drools**, **Grule** has its own _DSL_ or Domain-Specific Language.
 
 Below is an example of Drools's DRL or Drools Rule Language:
 
@@ -57,7 +56,7 @@ The **Grule** Rule Engine is a Production Rule System that uses the rule-based a
 
 A Production Rule System is Turing complete with a focus on knowledge representation to express propositional and first-order logic in a concise, non-ambiguous and declarative manner.
 
-The brain of a Production Rules System is an *Inference Engine* that can scale to a large number of rules and facts. The Inference Engine matches facts and data against Production Rules – also called **Productions** or just **Rules** – to infer conclusions which result in actions.
+The brain of a Production Rules System is an _Inference Engine_ that can scale to a large number of rules and facts. The Inference Engine matches facts and data against Production Rules – also called **Productions** or just **Rules** – to infer conclusions which result in actions.
 
 A Production Rule is a two-part structure that uses first-order logic for reasoning over knowledge representation. A business rule engine is a software system that executes one or more business rules in a runtime production environment.
 
@@ -65,7 +64,7 @@ A Rule Engine allows you to define **“What to Do”** and not **“How to do i
 
 ## What is a Rule
 
-*(also taken from TutorialsPoint)*
+_(also taken from TutorialsPoint)_
 
 Rules are pieces of knowledge often expressed as, "When some conditions occur, then do some tasks."
 
@@ -125,18 +124,18 @@ The following cases are better solved with a rule-engine:
    each customer based on the customer's transaction records (facts). We could
    see their score change based on how often they interact with the bank, how
    much money they transfer in and out, how quickly they pay their bills, how
-   much interest they accrue, how much they earn for themselves or for the bank, 
-   and so on. A rule engine could be provided by a developer, and the specification 
-   of the facts and rules can then be supplied by subject matter experts within the 
-   bank's customer analytics department. Decoupling these different teams puts the 
+   much interest they accrue, how much they earn for themselves or for the bank,
+   and so on. A rule engine could be provided by a developer, and the specification
+   of the facts and rules can then be supplied by subject matter experts within the
+   bank's customer analytics department. Decoupling these different teams puts the
    responsibilities where they should be.
 
 3. Computer games. Player status, rewards, penalties, damage, scores, and
    probability systems are many different examples of where rules play a
    significant part in most computer games. These rules can interact in
    very complex ways, often times in ways that the developer didn't foresee.
-   Coding these dynamic situations through the use of a scripting language 
-   (e.g. Lua) can get quite complex, and a rule engine can help simplify 
+   Coding these dynamic situations through the use of a scripting language
+   (e.g. Lua) can get quite complex, and a rule engine can help simplify
    the work tremendously.
 
 4. Classification systems. This is actually a generalization of the rating
@@ -151,7 +150,7 @@ The following cases are better solved with a rule-engine:
    newly discovered information about the domain which the ruleset is intending
    to model.
 
-There are many other use-cases that would benefit from the use of a Rule-Engine. 
+There are many other use-cases that would benefit from the use of a Rule-Engine.
 The above cases represent only a small number of the potential ones.
 
 However, it is important to remember that a Rule-Engine not a silver bullet, of
@@ -165,7 +164,6 @@ running them is easily offset by that value. For even moderately complex use
 cases, the benefit of a strong rule engine that can decouple teams and tame
 business complexity seems to be quite clear.
 
-
 ## Docs
 
 Documentation page [here](docs/Documentation.md)
@@ -173,18 +171,18 @@ Documentation page [here](docs/Documentation.md)
 To dive into the Tutorial, see the Wiki Docs [here on Github](docs/en/Tutorial_en.md).
 
 ### Benchmark
+
 `Loading rules into KnowledgeBase`:
 
-* To load `100` rules into knowledgeBase it took `99342047 ns/op` (took the highest value) that is equal to `~99.342047ms` and (`49295906 B/op`) `~49.295906MB` memory per operation
+- To load `100` rules into knowledgeBase it took `99342047 ns/op` (took the highest value) that is equal to `~99.342047ms` and (`49295906 B/op`) `~49.295906MB` memory per operation
 
-* To load `1000` rules into knowledgeBase it took `933617752 ns/op` (took the highest value) that is equal to `~933.617752ms` and (`488126636 B/op`) `~488.126636` memory per operation
+- To load `1000` rules into knowledgeBase it took `933617752 ns/op` (took the highest value) that is equal to `~933.617752ms` and (`488126636 B/op`) `~488.126636` memory per operation
 
 `Executing rules against a fact`:
 
-* To execute a fact against 100 rules, Grule Engine took `~9697 ns/op` (took the highest value as base) that is hardly `~0.009697ms` and `3957 B/op` which is pretty fast.
+- To execute a fact against 100 rules, Grule Engine took `~9697 ns/op` (took the highest value as base) that is hardly `~0.009697ms` and `3957 B/op` which is pretty fast.
 
-* To execute a fact against 1000 rules, Grule Engine took `~568959 ns/op` (took the highest value as base) that is hardly `~0.568959ms` and `293710 B/op` which is also pretty fast.
-
+- To execute a fact against 1000 rules, Grule Engine took `~568959 ns/op` (took the highest value as base) that is hardly `~0.568959ms` and `293710 B/op` which is also pretty fast.
 
 You can read the [detail report here](docs/en/Benchmarking_en.md)
 
@@ -192,10 +190,10 @@ You can read the [detail report here](docs/en/Benchmarking_en.md)
 
 Yes. We need contributors to make Grule even better and useful to the Open Source Community.
 
-* Need to do more and more and more tests.
-* Better code coverage test.
-* Better commenting for go doc best practice.
-* Improve function argument handling to be more fluid and intuitive.
+- Need to do more and more and more tests.
+- Better code coverage test.
+- Better commenting for go doc best practice.
+- Improve function argument handling to be more fluid and intuitive.
 
 If you really want to help us, simply `Fork` the project and apply for Pull Request.
 Please read our [Contribution Manual](CONTRIBUTING.md) and [Code of Conduct](CODE_OF_CONDUCTS.md)
