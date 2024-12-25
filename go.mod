@@ -1,9 +1,11 @@
 module github.com/5idu/grule-rule-engine
 
-go 1.20
+go 1.22
+
+toolchain go1.22.10
 
 require (
-	github.com/antlr/antlr4/runtime/Go/antlr v1.4.10
+	github.com/antlr4-go/antlr/v4 v4.13.1
 	github.com/bmatcuk/doublestar v1.3.4
 	github.com/duke-git/lancet/v2 v2.3.4
 	github.com/go-git/go-billy/v5 v5.5.0
@@ -35,12 +37,13 @@ require (
 	github.com/skeema/knownhosts v1.2.1 // indirect
 	github.com/xanzy/ssh-agent v0.3.3 // indirect
 	go.uber.org/multierr v1.10.0 // indirect
-	golang.org/x/crypto v0.18.0 // indirect
-	golang.org/x/exp v0.0.0-20221208152030-732eee02a75a // indirect
-	golang.org/x/mod v0.12.0 // indirect
-	golang.org/x/net v0.19.0 // indirect
-	golang.org/x/sys v0.16.0 // indirect
-	golang.org/x/tools v0.13.0 // indirect
+	golang.org/x/crypto v0.23.0 // indirect
+	golang.org/x/exp v0.0.0-20240506185415-9bf2ced13842 // indirect
+	golang.org/x/mod v0.17.0 // indirect
+	golang.org/x/net v0.25.0 // indirect
+	golang.org/x/sync v0.7.0 // indirect
+	golang.org/x/sys v0.20.0 // indirect
+	golang.org/x/tools v0.21.0 // indirect
 	gopkg.in/warnings.v0 v0.1.2 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )

@@ -23,7 +23,7 @@ import (
 	parser "github.com/5idu/grule-rule-engine/antlr/parser/grulev3"
 	"github.com/5idu/grule-rule-engine/ast"
 	"github.com/5idu/grule-rule-engine/pkg"
-	"github.com/antlr/antlr4/runtime/Go/antlr"
+	"github.com/antlr4-go/antlr/v4"
 	"github.com/stretchr/testify/assert"
 )
 

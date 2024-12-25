@@ -16,7 +16,8 @@ package pkg
 
 import (
 	"fmt"
-	"github.com/antlr/antlr4/runtime/Go/antlr"
+
+	"github.com/antlr4-go/antlr/v4"
 )
 
 // GruleErrorReporter is an implementation of ErrorListener interface by antlr. The purpose is to capture errors during lexer tokenization and parsing.
